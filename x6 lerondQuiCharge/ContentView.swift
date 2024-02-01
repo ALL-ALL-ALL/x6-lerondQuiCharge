@@ -8,43 +8,34 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private var Charge: Double = 10.0
+    @State private var progress: Double = 10.0
+    
+    private func updateCharge() {
+           Charge = progress * 10 // calcule pour mettre le liens  le slider et text
+       } // FIN FUNC
+
+    
+    
     var body: some View {
         ZStack {
-            Text("75%")
+            Text("\(Charge)")
+                .font(.largeTitle)
             
-            Circle()
+            Circle() // PREMIER CERCLE
                 .stroke(lineWidth: 10)
-           
-
-            
-            Circle()
-            
-                .trim(from: 0 , to: 0.7)
-
-                .stroke(lineWidth: 10)
+            Circle() // DEUXIEME CERLCE
+                .trim(from: 0, to: progress)
+                .stroke(lineWidth: 10) // EPAISSEUR DE LA LINE ROUGE (largeur)
                 .foregroundColor(.purple)
-            
-               
-           
-
-            
-            
-                
-                
-            
-            
-            
-        }
-
-        .frame(width: 400,height: 300)
-
-
-
-
-
+                .rotationEffect(.degrees(-90))
+        } // FIN ZSTACK
+        Slider(value: $progress, in: 0...1) { _ in
+            updateCharge()
+        } // fin SLIDER
+    }//  fin struct
+} // fin BODY
+    #Preview {
+        ContentView()
     }
-}
-
-#Preview {
-    ContentView()
-}
